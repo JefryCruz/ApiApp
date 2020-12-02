@@ -19,7 +19,7 @@ class PortafolioUserController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * @param string $bienvenidad
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -27,13 +27,12 @@ class PortafolioUserController extends Controller
     {
         DB::table('tbl_portafolio_user')->insert(
             [
-                'descripcion_portafolio' => $request['descripcion_portafolio'],
+                'descripcion_portafolio' => 'Bienvenido a mi portafolio',
             ]
         );
 
         return response()->json([
-            'res' => true,
-            'message' => 'Registro creado correctamente'
+            DB::table('tbl_portafolio_user')->latest('id_portafolio_user')->first('id_portafolio_user')
         ], 200);
     }
 

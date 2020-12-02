@@ -31,5 +31,5 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('datosUsuarios', DatosUsuarioController::class);
 Route::apiResource('Usuario', UsuarioController::class);
 Route::apiResource('PortafolioUser', PortafolioUserController::class);
-Route::apiResource('DetallePortafolio', DetallePortafolioController::class);
-Route::apiResource('ResenaUser', ResenaUserController::class);
+// Route::apiResource('DetallePortafolio', DetallePortafolioController::class);
+// Route::apiResource('ResenaUser', ResenaUserController::class);

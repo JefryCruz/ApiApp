@@ -14,7 +14,7 @@ class DatosUsuarioSeeder extends Seeder
      */
     public function run()
     {
-        DB::insert('insert into tbl_datos_usuario (nombre, apellido, fecha_nacimiento, telefono, correo) 
-        values (?, ?, ?, ?, ?)', ['Jefry', 'Cruz', '31/31/31', '3131-3131', 'sjefry30@gmail.com']);
+        DB::insert('insert into tbl_datos_usuario (nombre, apellido, fecha_nacimiento, telefono) 
+        values (?, ?, ?, ?)', ['Jefry', 'Cruz', '31/31/31', '3131-3131']);
     }
 }

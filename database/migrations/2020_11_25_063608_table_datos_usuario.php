@@ -20,7 +20,6 @@ class TableDatosUsuario extends Migration
             $table->string('apellido')->nullable();
             $table->string('fecha_nacimiento')->nullable();
             $table->string('telefono')->nullable()->unique();
-            $table->string('correo')->nullable()->unique();
         });
     }
 

@@ -32,8 +32,7 @@ class DatosUsuarioController extends Controller
                 'nombre' => $request['nombre'],
                 'apellido' => $request['apellido'],
                 'fecha_nacimiento' => $request['fecha_nacimiento'],
-                'telefono' => $request['telefono'],
-                'correo' => $request['correo']
+                'telefono' => $request['telefono']
             ]
         );
 
@@ -53,7 +52,7 @@ class DatosUsuarioController extends Controller
     {
         return  DB::table('tbl_datos_usuario')
         ->where([
-            'id_datos_usuario' => $id
+            ['id_datos_usuario', '=', $id]
         ])->select()->get();
     }
 
@@ -68,14 +67,13 @@ class DatosUsuarioController extends Controller
     {
         DB::table('tbl_datos_usuario')
         ->where([
-            'id_datos_usuario' => $id
+            ['id_datos_usuario', '=', $id]
         ])
         ->update([
             'nombre' => $request['nombre'],
             'apellido' => $request['apellido'],
             'fecha_nacimiento' => $request['fecha_nacimiento'],
             'telefono' => $request['telefono'],
-            'correo' => $request['correo']
         ]);
         
         return response()->json([

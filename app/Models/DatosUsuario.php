@@ -14,7 +14,6 @@ class DatosUsuario extends Model
         'nombre->enabled',
         'apellido->enabled',
         'fecha_nacimiento->enabled',
-        'telefono->enabled',
-        'correo->enabled'
+        'telefono->enabled'
     ];
 }

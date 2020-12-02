@@ -19,8 +19,8 @@ class TableUsuarios extends Migration
             $table->string('usuario')->nullable(false);
             $table->string('password')->nullable(false);
             $table->string('imagen_usuario')->nullable();
-            $table->integer('id_datos_usuario')->nullable(false);
-            $table->integer('id_detalle_categorias')->nullable();
+            $table->integer('id_datos_usuario')->nullable();
+            $table->integer('id_categoria_trabajo')->nullable();
             $table->integer('id_portafolio_user')->nullable();
         });
     }

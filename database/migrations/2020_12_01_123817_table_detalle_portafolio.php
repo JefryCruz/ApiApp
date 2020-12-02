@@ -19,7 +19,7 @@ class TableDetallePortafolio extends Migration
             $table->string('id_portafolio_user')->nullable();
             $table->date('fecha_creacion')->nullable();
             $table->integer('n_post')->nullable();
-            $table->string('multimedia')->nullable();
+            $table->bigInteger('multimedia')->nullable();
         });
     }
 

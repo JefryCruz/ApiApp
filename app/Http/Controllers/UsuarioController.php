@@ -14,30 +14,29 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
-        return  DB::table('tbl_usuario')
+        $datos = DB::table('tbl_usuario')
         ->join('tbl_datos_usuario', 'tbl_usuario.id_datos_usuario', '=', 'tbl_datos_usuario.id_datos_usuario')
         ->where([
-            'tbl_usuario.usuario' => $request['usuario'],
-            'tbl_usuario.password' => $request['password']
-        ])
-        ->orWhere([
-            'tbl_datos_usuario.correo' => $request['usuario'],
-            'tbl_usuario.password' => $request['password']
+            ['tbl_usuario.usuario', '=', $request['usuario']],
+            ['tbl_usuario.password', '=', $request['password']]
         ])
         ->select(
             'id_usuario',
             'usuario',
             'imagen_usuario',
             'tbl_usuario.id_datos_usuario',
-            'id_detalle_categorias',
+            'id_categoria_trabajo',
             'id_portafolio_user',
             'nombre',
             'apellido',
             'fecha_nacimiento',
-            'telefono',
-            'correo'
+            'telefono'
         )
         ->get();
+
+        return response()->json([
+            $datos
+        ], 200);
     }
 
     /**
@@ -53,13 +52,9 @@ class UsuarioController extends Controller
                 'usuario' => $request['usuario'],
                 'password' => $request['password'],
                 'imagen_usuario' => $request['imagen_usuario'],
-                'id_datos_usuario' => DB::table('tbl_datos_usuario')
-                                        ->latest('id_datos_usuario')
-                                        ->first(),
-                'id_detalle_categorias' => $request['id_detalle_categorias'],
-                'id_portafolio_user' => DB::table('tbl_portafolio_user')
-                                            ->latest('id_portafolio_user')
-                                            ->first()
+                'id_datos_usuario' =>  $request['id_datos_usuario'],
+                'id_categoria_trabajo' => $request['id_categoria_trabajo'],
+                'id_portafolio_user' => $request['id_portafolio_user'],
             ]
         );
 
@@ -77,9 +72,21 @@ class UsuarioController extends Controller
     public function show($id)
     {
         return  DB::table('tbl_usuario')
+        ->join('tbl_portafolio_user', 'tbl_usuario.id_portafolio_user', '=', 'tbl_portafolio_user.id_portafolio_user')
+        ->join('tbl_datos_usuario', 'tbl_usuario.id_datos_usuario', '=', 'tbl_datos_usuario.id_datos_usuario')
         ->where([
-            'id_usuario' => $id
-        ])->select()
+            ['tbl_usuario.id_usuario', '=', $id]
+        ])->select(
+            'id_usuario',
+            'usuario',
+            'imagen_usuario',
+            'tbl_usuario.id_portafolio_user',
+            'nombre',
+            'apellido',
+            'fecha_nacimiento',
+            'telefono',
+            'descripcion_portafolio'
+        )
         ->get();
     }
 
@@ -94,13 +101,12 @@ class UsuarioController extends Controller
     {
         DB::table('tbl_usuario')
         ->where([
-            'id_usuario' => $id
+            ['id_usuario', '=', $id]
         ])
         ->update([
-            'usuario' => $request['usuario'],
-            'password' => $request['password'],
             'imagen_usuario' => $request['imagen_usuario'],
-            'id_detalle_categorias' => $request['id_detalle_categorias'],
+            'id_categoria_trabajo' => $request['id_categoria_trabajo'],
+            'id_datos_usuario' => $request['id_datos_usuario'],
         ]);
         
         return response()->json([
@@ -117,6 +123,6 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

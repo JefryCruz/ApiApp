@@ -23,7 +23,7 @@ class PortafolioUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         DB::table('tbl_portafolio_user')->insert(
             [
@@ -56,7 +56,18 @@ class PortafolioUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('tbl_portafolio_user')
+        ->where([
+            ['id_portafolio_user', '=', $id]
+        ])
+        ->update([
+            'descripcion_portafolio', '=', $request['descripcion_portafolio']
+        ]);
+        
+        return response()->json([
+            'res' => true,
+            'message' => 'Registro actualizado correctamente'
+        ], 200);
     }
 
     /**

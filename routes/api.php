@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\DatosUsuarioController;
 use App\Http\Controllers\DetallePortafolioController;
 use App\Http\Controllers\PortafolioUserController;
@@ -31,5 +32,6 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('datosUsuarios', DatosUsuarioController::class);
 Route::apiResource('Usuario', UsuarioController::class);
 Route::apiResource('PortafolioUser', PortafolioUserController::class);
-// Route::apiResource('DetallePortafolio', DetallePortafolioController::class);
+Route::apiResource('Categorias', CategoriasController::class);
+Route::apiResource('DetallePortafolio', DetallePortafolioController::class);
 // Route::apiResource('ResenaUser', ResenaUserController::class);

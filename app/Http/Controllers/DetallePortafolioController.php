@@ -50,10 +50,14 @@ class DetallePortafolioController extends Controller
     {
         return  DB::table('tbl_detalle_portafolio')
         ->where([
-            'id_portafolio_user' => $id
+            ['id_portafolio_user', "=", $id]
         ])
         ->orderBy('fecha_creacion', 'desc')
-        ->orderBy('n_post', 'desc')
+        ->orderBy('id_detalle_portafolio', 'desc')
+        ->select(
+            'fecha_creacion',
+            'multimedia'
+        )
         ->get();
     }
 
@@ -89,7 +93,7 @@ class DetallePortafolioController extends Controller
     {
         DB::table('tbl_detalle_portafolio')
         ->where([
-            'id_detalle_portafolio' => $id
+            ['id_detalle_portafolio', "=", $id]
         ])->delete();
 
         return response()->json([

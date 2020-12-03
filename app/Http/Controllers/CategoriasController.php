@@ -5,32 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class UsuarioController extends Controller
+class CategoriasController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        return DB::table('tbl_usuario')
-        ->join('tbl_datos_usuario', 'tbl_usuario.id_datos_usuario', '=', 'tbl_datos_usuario.id_datos_usuario')
-        ->where([
-            ['tbl_usuario.usuario', '=', $request['usuario']],
-            ['tbl_usuario.password', '=', $request['password']]
-        ])
+        return DB::table('tbl_categorias')
         ->select(
-            'id_usuario',
-            'usuario',
-            'imagen_usuario',
-            'tbl_usuario.id_datos_usuario',
             'id_categoria_trabajo',
-            'id_portafolio_user',
-            'nombre',
-            'apellido',
-            'fecha_nacimiento',
-            'telefono'
+            'nombre_categoria',
+            'alias'
         )
         ->get();
     }
@@ -43,14 +31,11 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('tbl_usuario')->insert(
+        DB::table('tbl_categorias')->insert(
             [
-                'usuario' => $request['usuario'],
-                'password' => $request['password'],
-                'imagen_usuario' => $request['imagen_usuario'],
-                'id_datos_usuario' =>  $request['id_datos_usuario'],
-                'id_categoria_trabajo' => $request['id_categoria_trabajo'],
-                'id_portafolio_user' => $request['id_portafolio_user'],
+                'nombre_categoria' => $request['nombre_categoria'],
+                'alias' => $request['alias'],
+                'descripcion' => $request['descripcion'],
             ]
         );
 
@@ -62,24 +47,24 @@ class UsuarioController extends Controller
 
     /**
      * Display the specified resource.
-     * param  int  $id
+     *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return  DB::table('tbl_usuario')
+        return  DB::table('tbl_categorias')
+        ->join('tbl_usuario', 'tbl_categorias.id_categoria_trabajo', '=', 'tbl_usuario.id_categoria_trabajo')
         ->join('tbl_datos_usuario', 'tbl_usuario.id_datos_usuario', '=', 'tbl_datos_usuario.id_datos_usuario')
         ->join('tbl_portafolio_user', 'tbl_usuario.id_portafolio_user', '=', 'tbl_portafolio_user.id_portafolio_user')
         ->where([
-            ['tbl_usuario.id_usuario', '=', $id]
+            ['tbl_categorias.id_categoria_trabajo', '=', $id]
         ])->select(
+            'tbl_categorias.id_categoria_trabajo',
             'id_usuario',
-            'usuario',
-            'imagen_usuario',
             'tbl_usuario.id_portafolio_user',
             'nombre',
             'apellido',
-            'fecha_nacimiento',
             'telefono',
             'descripcion_portafolio'
         )
@@ -95,17 +80,16 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::table('tbl_usuario')
+        DB::table('tbl_categorias')
         ->where([
-            ['id_usuario', '=', $id]
+            ['id_categoria_trabajo', '=', $id]
         ])
         ->update([
-            'imagen_usuario' => $request['imagen_usuario'],
-            'id_categoria_trabajo' => $request['id_categoria_trabajo'],
-            'id_datos_usuario' => $request['id_datos_usuario'],
-            'id_portafolio_user' => $request['id_portafolio_user'],
+            'nombre_categoria' => $request['nombre_categoria'],
+            'alias' => $request['alias'],
+            'descripcion' => $request['descripcion'],
         ]);
-        
+
         return response()->json([
             'res' => true,
             'message' => 'Registro actualizado correctamente'

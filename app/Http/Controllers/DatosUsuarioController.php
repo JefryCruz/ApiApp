@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateDatosUsuarioRequest;
-use App\Http\Requests\UpdateDatosUsuarioRequest;
+use Illuminate\Http\Request;
 use App\Models\DatosUsuario as _DatosUsuario;
 use Illuminate\Support\Facades\DB;
 
@@ -25,7 +24,7 @@ class DatosUsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateDatosUsuarioRequest $request)
+    public function store(Request $request)
     {
         DB::table('tbl_datos_usuario')->insert(
             [
@@ -37,7 +36,7 @@ class DatosUsuarioController extends Controller
         );
 
         return response()->json([
-            DB::table('tbl_datos_usuario')->latest('id_portafolio_user')->first('id_datos_usuario')
+            DB::table('tbl_portafolio_user')->latest('id_portafolio_user')->first('id_portafolio_user')
         ], 200);
     }
 
@@ -62,7 +61,7 @@ class DatosUsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDatosUsuarioRequest $request, $id)
+    public function update(Request $request, $id)
     {
         DB::table('tbl_datos_usuario')
         ->where([

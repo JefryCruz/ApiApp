@@ -55,8 +55,7 @@ class UsuarioController extends Controller
         );
 
         return response()->json([
-            'res' => true,
-            'message' => 'Registro creado correctamente'
+            DB::table('tbl_usuario')->latest('id_usuario')->first('id_usuario')
         ], 200);
     }
 

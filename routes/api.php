@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\DatosUsuarioController;
 use App\Http\Controllers\DetallePortafolioController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PortafolioUserController;
 use App\Http\Controllers\ResenaUserController;
 use App\Http\Controllers\UsuarioController;
@@ -34,4 +35,5 @@ Route::apiResource('Usuario', UsuarioController::class);
 Route::apiResource('PortafolioUser', PortafolioUserController::class);
 Route::apiResource('Categorias', CategoriasController::class);
 Route::apiResource('DetallePortafolio', DetallePortafolioController::class);
+Route::apiResource('Login', LoginController::class);
 // Route::apiResource('ResenaUser', ResenaUserController::class);
